@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Junaid & Kousar Anjum</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mukhmal: {
+                            950: '#0B0003',
+                            900: '#160006',
+                            800: '#2A020B',
+                            700: '#420412',
+                            600: '#5F0619',
+                            500: '#800A22',
+                        },
+                        gold: {
+                            100: '#FFFBE6',
+                            200: '#FFF1B0',
+                            300: '#F7E185',
+                            400: '#E6C252',
+                            500: '#D4AF37',
+                            600: '#AA851C',
+                            700: '#80600D',
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        greatvibes: ['"Great Vibes"', 'cursive'],
+                        cormorant: ['"Cormorant Garamond"', 'serif'],
+                        arabic: ['Amiri', 'serif'],
+                        montserrat: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Setup & Background Texture */
+        body {
+            background-color: #0B0003;
+            color: #FFF1B0;
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .mukhmal-bg {
+            background: 
+                radial-gradient(circle at 50% 10%, rgba(128, 10, 34, 0.7), rgba(11, 0, 3, 0.98) 70%),
+                radial-gradient(circle at 20% 60%, rgba(66, 4, 18, 0.5), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(95, 6, 25, 0.5), transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Gold Gradient Text */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFFBE6 0%, #FFF1B0 20%, #E6C252 50%, #D4AF37 75%, #AA851C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glass Cards with Gold Borders */
+        .royal-card {
+            background: linear-gradient(165deg, rgba(42, 2, 11, 0.85) 0%, rgba(22, 0, 6, 0.95) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(212, 175, 55, 0.08);
+        }
+
+        .royal-card-cream {
+            background: linear-gradient(145deg, #2a030b 0%, #1f0208 100%);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Gold Ornate Corner Decorations */
+        .ornate-corner {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            border-color: #D4AF37;
+            border-style: solid;
+            z-index: 10;
+        }
+        .corner-tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+        .corner-tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+        .corner-bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+        .corner-br { bottom: 8px; right: 8px; border-width: 0 2px 0 0; }
+
+        /* Gold Buttons */
+        .gold-button {
+            background: linear-gradient(135deg, #F7E185 0%, #D4AF37 50%, #AA851C 100%);
+            color: #0B0003;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+            transition: all 0.3s ease;
+        }
+        .gold-button:hover {
+            background: linear-gradient(135deg, #FFFBE6 0%, #F7E185 50%, #D4AF37 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+        .gold-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Velvet Curtain Splitting Opening Animation */
+        .curtain-left, .curtain-right {
+            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .curtain-opened .curtain-left {
+            transform: translateX(-100%);
+        }
+        .curtain-opened .curtain-right {
+            transform: translateX(100%);
+        }
+
+        /* Ambient Soft Glow */
+        .motif-glow {
+            filter: drop-shadow(0 0 20px rgba(255, 230, 130, 0.85));
+        }
+
+        /* Date Bumping Animation */
+        @keyframes dateBump {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+        }
+        .animate-bump {
+            animation: dateBump 1.2s infinite ease-in-out;
+        }
+
+        /* Toast */
+        #toast {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+    </style>
+</head>
+<body class="mukhmal-bg min-h-screen text-gold-200 relative flex flex-col justify-between items-center font-cormorant">
+
+    <!-- BACKGROUND MUSIC ELEMENT (Mawla Ya Salli Wa Instrument)[cite: 3] -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="mawla_ya_salli_wa.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- CANVAS FOR FALLING PETALS & GOLD DUST -->
+    <canvas id="petalsCanvas" class="fixed inset-0 pointer-events-none z-20 w-full h-full"></canvas>
+
+    <!-- CANVAS FOR FIREWORKS ANIMATION -->
+    <canvas id="fireworksCanvas" class="fixed inset-0 pointer-events-none z-30 w-full h-full"></canvas>
+
+    <!-- 1. FULLSCREEN OVERLAY: TAP TO OPEN CURTAIN STAGE -->
+    <div id="openingStage" class="fixed inset-0 z-50 overflow-hidden flex flex-col justify-between items-center transition-opacity duration-1000">
+        
+        <!-- Left Velvet Curtain -->
+        <div class="curtain-left absolute top-0 left-0 w-1/2 h-full bg-cover bg-left z-10 border-r border-gold-500/30"
+             style="background-image: linear-gradient(to right, rgba(11,0,3,0.92), rgba(66,4,18,0.96)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop');">
+        </div>
+        
+        <!-- Right Velvet Curtain -->
+        <div class="curtain-right absolute top-0 right-0 w-1/2 h-full bg-cover bg-right z-10 border-l border-gold-500/30"
+             style="background-image: linear-gradient(to left, rgba(11,0,3,0.92), rgba(66,4,18,0.96)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop');">
+        </div>
+
+        <!-- ELEGANT ISLAMIC CRESCENT & STAR MOTIF -->
+        <div class="relative z-20 pt-12 flex flex-col items-center pointer-events-none">
+            <div class="motif-glow text-gold-300 flex flex-col items-center">
+                <i class="fa-solid fa-moon text-5xl sm:text-6xl text-gold-400 transform -rotate-12 mb-2"></i>
+                <i class="fa-solid fa-star text-xs text-gold-300 animate-pulse absolute top-10 right-8"></i>
+                <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-gold-400 to-transparent mt-3"></div>
+            </div>
+        </div>
+
+        <!-- Tap To Open Center Interactive Section -->
+        <div class="relative z-30 my-auto text-center px-4 cursor-pointer" onclick="triggerCurtainOpen()">
+            <div class="w-20 h-20 mx-auto mb-5 rounded-full border-2 border-gold-400/80 bg-mukhmal-900/90 flex items-center justify-center shadow-2xl animate-bounce">
+                <i class="fa-solid fa-heart text-gold-300 text-3xl drop-shadow-md"></i>
+            </div>
+            <h2 class="font-greatvibes text-5xl sm:text-6xl gold-gradient-text tracking-wide drop-shadow-lg">
+                tap to open
+            </h2>
+            <div class="flex items-center justify-center gap-2 mt-2">
+                <span class="h-[1px] w-8 bg-gold-400"></span>
+                <span class="font-cinzel text-xs text-gold-300 tracking-[0.3em] uppercase">Mukhmal Royal Invitation</span>
+                <span class="h-[1px] w-8 bg-gold-400"></span>
+            </div>
+        </div>
+
+        <!-- Bottom Floral Arch Visual Placeholder -->
+        <div class="relative z-20 bottom-0 w-full text-center pb-8 pointer-events-none">
+            <div class="flex justify-center items-end gap-3 text-gold-500/60">
+                <i class="fa-solid fa-seedling text-2xl"></i>
+                <i class="fa-solid fa-fan text-3xl text-gold-400"></i>
+                <i class="fa-solid fa-seedling text-2xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. FLOATING CONTROLS (AUDIO TOGGLE) -->
+    <div class="fixed bottom-6 right-5 z-40">
+        <button id="audioToggleBtn" onclick="toggleAudio()" class="w-12 h-12 rounded-full bg-mukhmal-900/90 border border-gold-500/60 flex items-center justify-center text-gold-300 shadow-2xl backdrop-blur-md hover:scale-105 active:scale-95 transition-transform">
+            <i id="audioIcon" class="fa-solid fa-music text-base"></i>
+        </button>
+    </div>
+
+    <!-- 3. MAIN INVITATION APP CONTAINER -->
+    <main class="w-full max-w-lg mx-auto relative px-4 py-8 pb-20 flex flex-col gap-8 z-10 opacity-0 transition-opacity duration-1000" id="mainApp">
+
+        <!-- HEADER ISLAMIC BISMILLAH ART -->
+        <section class="text-center pt-2">
+            <div class="text-gold-400 mb-2">
+                <i class="fa-solid fa-kaaba text-xl"></i>
+            </div>
+            <p class="font-arabic text-3xl sm:text-4xl text-gold-300 leading-relaxed drop-shadow">
+                بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+            </p>
+            <p class="font-cinzel text-[10px] tracking-[0.25em] text-gold-400/90 uppercase mt-1">
+                In The Name of Allah, The Most Gracious, The Most Merciful
+            </p>
+        </section>
+
+        <!-- MAIN COUPLE INVITATION CARD -->
+        <section class="royal-card rounded-3xl p-6 sm:p-8 text-center relative">
+            <div class="ornate-corner corner-tl"></div>
+            <div class="ornate-corner corner-tr"></div>
+            <div class="ornate-corner corner-bl"></div>
+            <div class="ornate-corner corner-br"></div>
+
+            <p class="font-cinzel text-[11px] uppercase tracking-[0.25em] text-gold-300 mb-6">
+                We Request The Honour Of Your Presence At The Nikah Of
+            </p>
+
+            <div class="space-y-6 py-2">
+                <!-- GROOM FIRST -->
+                <div class="py-2">
+                    <h1 class="font-greatvibes text-5xl sm:text-6xl gold-gradient-text leading-snug tracking-wide py-2">
+                        Mohammed Junaid
+                    </h1>
+                    <p class="font-cinzel text-[11px] text-gold-300/90 tracking-wider mt-1 uppercase">
+                        Son of Mr. Anwar Hussain & Mrs. Khatoon Bano
+                    </p>
+                </div>
+
+                <!-- ELEGANT "&" CONNECTOR -->
+                <div class="flex items-center justify-center gap-4 my-2">
+                    <span class="h-[1px] w-14 bg-gradient-to-r from-transparent to-gold-400"></span>
+                    <span class="font-greatvibes text-3xl text-gold-300">&</span>
+                    <span class="h-[1px] w-14 bg-gradient-to-l from-transparent to-gold-400"></span>
+                </div>
+
+                <!-- BRIDE SECOND -->
+                <div class="py-2">
+                    <h1 class="font-greatvibes text-5xl sm:text-6xl gold-gradient-text leading-snug tracking-wide py-2">
+                        Kousar Anjum
+                    </h1>
+                    <p class="font-cinzel text-[11px] text-gold-300/90 tracking-wider mt-1 uppercase">
+                        Daughter of Mr. Mohammed Sharif & Mrs. Hajra Bano
+                    </p>
+                </div>
+            </div>
+
+            <p class="font-cinzel text-xs text-gold-300/90 tracking-widest uppercase mt-6 pt-4 border-t border-gold-500/30">
+                As They Begin This Sacred Journey In Faith And Love
+            </p>
+        </section>
+
+        <!-- QURANIC VERSE CARD -->
+        <section class="royal-card rounded-2xl p-6 text-center space-y-3 relative border border-gold-500/40">
+            <div class="text-gold-400/50 text-xl font-serif">“</div>
+            <p class="font-arabic text-xl sm:text-2xl text-gold-200 leading-loose">
+                وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+            </p>
+            <p class="font-cormorant italic text-sm text-gold-100 leading-relaxed px-1">
+                "And among His signs is that He created for you spouses from among yourselves, that you may find tranquility in them; and He placed between you affection and mercy."
+            </p>
+            <p class="font-cinzel text-[11px] text-gold-400 tracking-widest uppercase pt-1">— SURAH AR-RUM (30:21)</p>
+        </section>
+
+        <!-- WITH THE BLESSINGS OF ALLAH ANNOUNCEMENT -->
+        <section class="royal-card-cream rounded-2xl p-6 text-center space-y-3 relative">
+            <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400">With The Blessings Of Allah</p>
+            <h2 class="font-cinzel text-xl text-gold-200 tracking-wider uppercase font-bold">A Blessed Union</h2>
+            <p class="font-cormorant text-base text-gold-200/90 leading-relaxed pt-1">
+                With hearts full of gratitude, we warmly invite you to join us as we celebrate this sacred union with the love, prayers, and blessings of our families.
+            </p>
+            <p class="font-greatvibes text-3xl gold-gradient-text pt-2 py-1">Junaid & Kousar</p>
+        </section>
+
+        <!-- 4. SCRATCH TO REVEAL DATE -->
+        <section class="royal-card rounded-2xl p-6 text-center relative overflow-hidden border border-gold-500/50">
+            <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400 mb-1">A Date To Hold Close</p>
+            <h3 class="font-cinzel text-xl text-gold-200 tracking-wider font-bold mb-4">SCRATCH TO REVEAL</h3>
+
+            <!-- Round Container -->
+            <div class="relative w-60 h-60 mx-auto flex items-center justify-center">
+                <!-- Revealed Inner Details -->
+                <div class="relative w-full h-full rounded-full flex flex-col items-center justify-center p-4 bg-gradient-to-br from-mukhmal-800 via-mukhmal-900 to-mukhmal-950 border-2 border-gold-400/60 shadow-2xl z-0">
+                    <span class="font-cinzel text-[10px] text-gold-400 uppercase tracking-widest mb-1">Save The Date</span>
+                    <h4 class="font-cinzel text-xl sm:text-2xl font-bold gold-gradient-text my-1 text-center">NOVEMBER 15, 2026</h4>
+                    <span class="font-cinzel text-xs text-gold-300 uppercase tracking-wider">SUNDAY • 11:00 AM IST</span>
+                    <i class="fa-solid fa-sparkles text-gold-400 text-sm mt-2"></i>
+                </div>
+
+                <!-- Interactive Round Scratch Canvas Overlay Layer -->
+                <canvas id="scratchCanvas" class="absolute inset-0 w-full h-full cursor-pointer z-10 touch-none rounded-full"></canvas>
+            </div>
+
+            <p id="scratchInstruction" class="font-cinzel text-[10px] text-gold-400/80 tracking-widest mt-4 uppercase">
+                Scratch or swipe to unveil the moment
+            </p>
+        </section>
+
+        <!-- 5. OUR FOREVER BEGINS & CALENDAR -->
+        <section class="royal-card rounded-2xl p-6 text-center space-y-4 border border-gold-500/40">
+            <div>
+                <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400">Mark Your Calendar</p>
+                <h3 class="font-cinzel text-2xl gold-gradient-text font-bold mt-1">OUR FOREVER BEGINS</h3>
+            </div>
+
+            <div class="bg-mukhmal-950/90 rounded-xl p-4 border border-gold-500/30">
+                <div class="flex items-center justify-between font-cinzel text-sm text-gold-300 font-bold mb-3 px-2">
+                    <i class="fa-solid fa-moon text-gold-400"></i>
+                    <span class="tracking-widest uppercase">NOVEMBER 2026</span>
+                    <i class="fa-solid fa-star text-gold-400 text-xs"></i>
+                </div>
+
+                <!-- Calendar Grid -->
+                <div class="grid grid-cols-7 gap-1 text-center font-montserrat text-xs">
+                    <span class="text-gold-500/60 font-bold py-1">S</span>
+                    <span class="text-gold-500/60 font-bold py-1">M</span>
+                    <span class="text-gold-500/60 font-bold py-1">T</span>
+                    <span class="text-gold-500/60 font-bold py-1">W</span>
+                    <span class="text-gold-500/60 font-bold py-1">T</span>
+                    <span class="text-gold-500/60 font-bold py-1">F</span>
+                    <span class="text-gold-500/60 font-bold py-1">S</span>
+
+                    <!-- Row 1 -->
+                    <span class="py-1.5 text-gold-500/40">1</span>
+                    <span class="py-1.5 text-gold-500/40">2</span>
+                    <span class="py-1.5 text-gold-500/40">3</span>
+                    <span class="py-1.5 text-gold-500/40">4</span>
+                    <span class="py-1.5 text-gold-500/40">5</span>
+                    <span class="py-1.5 text-gold-500/40">6</span>
+                    <span class="py-1.5 text-gold-500/40">7</span>
+
+                    <!-- Row 2 -->
+                    <span class="py-1.5 text-gold-500/40">8</span>
+                    <span class="py-1.5 text-gold-500/40">9</span>
+                    <span class="py-1.5 text-gold-500/40">10</span>
+                    <span class="py-1.5 text-gold-500/40">11</span>
+                    <span class="py-1.5 text-gold-500/40">12</span>
+                    <span class="py-1.5 text-gold-500/40">13</span>
+                    <span class="py-1.5 text-gold-500/40">14</span>
+
+                    <!-- Row 3: DATE 15 HIGHLIGHTED -->
+                    <div class="py-1 flex items-center justify-center">
+                        <span class="w-8 h-8 rounded-full bg-gradient-to-r from-gold-300 to-gold-500 text-mukhmal-950 font-bold flex items-center justify-center shadow-lg animate-bump">
+                            15
+                        </span>
+                    </div>
+
+                    <span class="py-1.5 text-gold-500/40">16</span>
+                    <span class="py-1.5 text-gold-500/40">17</span>
+                    <span class="py-1.5 text-gold-500/40">18</span>
+                    <span class="py-1.5 text-gold-500/40">19</span>
+                    <span class="py-1.5 text-gold-500/40">20</span>
+                    <span class="py-1.5 text-gold-500/40">21</span>
+
+                    <!-- Row 4 -->
+                    <span class="py-1.5 text-gold-500/40">22</span>
+                    <span class="py-1.5 text-gold-500/40">23</span>
+                    <span class="py-1.5 text-gold-500/40">24</span>
+                    <span class="py-1.5 text-gold-500/40">25</span>
+                    <span class="py-1.5 text-gold-500/40">26</span>
+                    <span class="py-1.5 text-gold-500/40">27</span>
+                    <span class="py-1.5 text-gold-500/40">28</span>
+
+                    <!-- Row 5 -->
+                    <span class="py-1.5 text-gold-500/40">29</span>
+                    <span class="py-1.5 text-gold-500/40">30</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. LIVE COUNTDOWN TIMER -->
+        <section class="royal-card rounded-2xl p-6 text-center border border-gold-500/40">
+            <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400 mb-1">Until We Say Qabool Hai</p>
+            <h3 class="font-cinzel text-xl text-gold-200 tracking-wider font-bold mb-5">COUNTING EVERY MOMENT</h3>
+
+            <div class="grid grid-cols-4 gap-2 sm:gap-3 font-cinzel" id="countdownGrid">
+                <div class="bg-mukhmal-950/90 border border-gold-500/40 rounded-xl p-2.5 sm:p-3">
+                    <span id="days" class="block text-2xl sm:text-3xl font-extrabold gold-gradient-text">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-gold-400/80">DAYS</span>
+                </div>
+                <div class="bg-mukhmal-950/90 border border-gold-500/40 rounded-xl p-2.5 sm:p-3">
+                    <span id="hours" class="block text-2xl sm:text-3xl font-extrabold gold-gradient-text">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-gold-400/80">HOURS</span>
+                </div>
+                <div class="bg-mukhmal-950/90 border border-gold-500/40 rounded-xl p-2.5 sm:p-3">
+                    <span id="minutes" class="block text-2xl sm:text-3xl font-extrabold gold-gradient-text">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-gold-400/80">MINUTES</span>
+                </div>
+                <div class="bg-mukhmal-950/90 border border-gold-500/40 rounded-xl p-2.5 sm:p-3">
+                    <span id="seconds" class="block text-2xl sm:text-3xl font-extrabold gold-gradient-text">00</span>
+                    <span class="text-[9px] uppercase tracking-wider text-gold-400/80">SECONDS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. WEDDING EVENTS ITINERARY CARDS -->
+        <section id="eventsSection" class="space-y-5">
+            <div class="text-center">
+                <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400">Celebrating Together</p>
+                <h2 class="font-cinzel text-2xl gold-gradient-text font-bold tracking-widest uppercase mt-1">WEDDING EVENTS</h2>
+                <div class="w-16 h-0.5 bg-gold-500/50 mx-auto mt-2"></div>
+            </div>
+
+            <!-- Event 1: Baraat Ravangi -->
+            <div class="royal-card rounded-2xl p-6 border border-gold-500/40 relative">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] font-cinzel text-gold-400 uppercase tracking-widest bg-gold-500/10 px-2.5 py-1 rounded-full border border-gold-500/30">Pre-Wedding</span>
+                        <h3 class="font-cinzel text-xl text-gold-300 font-bold mt-2">Baraat Ravangi</h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-full border border-gold-400/40 bg-mukhmal-950 flex items-center justify-center text-gold-400 text-lg">
+                        <i class="fa-solid fa-horse"></i>
+                    </div>
+                </div>
+                <div class="mt-4 space-y-1.5 text-sm font-cormorant text-gold-200">
+                    <p><i class="fa-regular fa-calendar-check text-gold-400 w-5"></i> Sunday, November 15, 2026</p>
+                    <p><i class="fa-regular fa-clock text-gold-400 w-5"></i> Morning 8:00 AM</p>
+                </div>
+            </div>
+
+            <!-- Event 2: Nikaah -->
+            <div class="royal-card rounded-2xl p-6 border-2 border-gold-400/70 relative shadow-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] font-cinzel text-mukhmal-950 font-bold uppercase tracking-widest bg-gold-400 px-3 py-1 rounded-full">The Sacred Ceremony</span>
+                        <h3 class="font-cinzel text-2xl gold-gradient-text font-bold mt-2">Nikaah</h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-full border border-gold-400 bg-mukhmal-950 flex items-center justify-center text-gold-300 text-xl shadow-lg">
+                        <i class="fa-solid fa-kaaba"></i>
+                    </div>
+                </div>
+                <div class="mt-4 space-y-1.5 text-base font-cormorant text-gold-100">
+                    <p><i class="fa-regular fa-calendar-check text-gold-400 w-5"></i> Sunday, November 15, 2026</p>
+                    <p><i class="fa-regular fa-clock text-gold-400 w-5"></i> Morning 11:00 AM</p>
+                </div>
+            </div>
+
+            <!-- Event 3: Dawate Walima -->
+            <div class="royal-card rounded-2xl p-6 border border-gold-500/40 relative">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] font-cinzel text-gold-400 uppercase tracking-widest bg-gold-500/10 px-2.5 py-1 rounded-full border border-gold-500/30">Grand Feast</span>
+                        <h3 class="font-cinzel text-xl text-gold-300 font-bold mt-2">Dawat-e-Walima</h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-full border border-gold-400/40 bg-mukhmal-950 flex items-center justify-center text-gold-400 text-lg">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                </div>
+                <div class="mt-4 space-y-1.5 text-sm font-cormorant text-gold-200">
+                    <p><i class="fa-regular fa-calendar-check text-gold-400 w-5"></i> Monday, November 16, 2026</p>
+                    <p><i class="fa-regular fa-clock text-gold-400 w-5"></i> Noon 12:00 PM</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. VENUE & DESTINATION DETAILS -->
+        <section id="venueSection" class="royal-card rounded-2xl p-6 text-center space-y-4 border border-gold-500/40">
+            <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400">The Destination</p>
+            <h3 class="font-cinzel text-2xl gold-gradient-text font-bold uppercase">Madarsa Chhipaan</h3>
+            <p class="font-cormorant text-lg text-gold-200 px-4">Chhipaa Mohalla, Beawer</p>
+
+            <div class="pt-2">
+                <button onclick="copyAddress()" class="gold-button w-full font-cinzel text-xs py-3.5 rounded-xl flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-copy"></i> COPY VENUE ADDRESS
+                </button>
+            </div>
+        </section>
+
+        <!-- 9. BLESSING PANEL (SEND DIRECTLY VIA WHATSAPP) -->
+        <section id="blessingPanel" class="royal-card rounded-2xl p-6 text-center border border-gold-500/40 relative">
+            <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400">Warm Wishes & Duas</p>
+            <h3 class="font-cinzel text-2xl gold-gradient-text font-bold mb-1">GIVE YOUR BLESSINGS</h3>
+            <p class="font-cinzel text-[10px] text-gold-400/80 tracking-widest uppercase mb-6">Send your heartfelt love directly via WhatsApp</p>
+
+            <form id="blessingForm" onsubmit="sendWhatsAppBlessing(event)" class="space-y-4 text-left font-montserrat text-xs">
+                <div>
+                    <label class="block text-gold-300 font-cinzel uppercase mb-1">YOUR NAME</label>
+                    <input type="text" id="blessingName" required placeholder="Enter your full name" class="w-full bg-mukhmal-950 border border-gold-500/40 rounded-xl px-4 py-3 text-gold-100 placeholder-gold-500/30 focus:outline-none focus:border-gold-400">
+                </div>
+
+                <div>
+                    <label class="block text-gold-300 font-cinzel uppercase mb-1">YOUR BLESSINGS / DUA</label>
+                    <textarea id="blessingMessage" rows="3" required placeholder="May Allah bless this beautiful couple with happiness and tranquility..." class="w-full bg-mukhmal-950 border border-gold-500/40 rounded-xl px-4 py-3 text-gold-100 placeholder-gold-500/30 focus:outline-none focus:border-gold-400"></textarea>
+                </div>
+
+                <button type="submit" class="gold-button w-full font-cinzel text-xs py-3.5 rounded-xl tracking-widest uppercase mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg text-emerald-900"></i> SEND VIA WHATSAPP
+                </button>
+            </form>
+
+            <div id="blessingSuccess" class="hidden py-6 space-y-3">
+                <i class="fa-solid fa-heart text-gold-400 text-4xl animate-bounce"></i>
+                <h4 class="font-cinzel text-xl text-gold-300 font-bold">JAZAKALLAH KHAYR!</h4>
+                <p class="font-cormorant text-base text-gold-200">WhatsApp is opening to deliver your warm blessings and duas directly to the family. Thank you!</p>
+            </div>
+        </section>
+
+        <!-- 10. PRESENCE IS OUR PRESENT & AUTHENTIC ARABIC DUA -->
+        <section class="royal-card rounded-2xl p-6 text-center space-y-4 border border-gold-500/40">
+            <p class="font-cinzel text-xs uppercase tracking-[0.25em] text-gold-400">With All Our Hearts</p>
+            <h3 class="font-cinzel text-2xl gold-gradient-text font-bold">YOUR PRESENCE IS OUR PRESENT</h3>
+            <p class="font-cormorant italic text-sm text-gold-200 leading-relaxed px-2">
+                Your love, blessings, and presence are the greatest gifts we could ever ask for.
+            </p>
+
+            <div class="my-4 h-[1px] bg-gradient-to-r from-transparent via-gold-500/40 to-transparent"></div>
+
+            <p class="font-arabic text-2xl text-gold-300 leading-relaxed">
+                بَارَكَ ٱللَّٰهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
+            </p>
+            <p class="font-cinzel text-[10px] text-gold-400/90 tracking-widest uppercase">
+                May Allah bless you, shower His blessings upon you, and join you together in goodness.
+            </p>
+        </section>
+
+        <!-- 11. CLOSING FOOTER CARD -->
+        <footer class="royal-card-cream rounded-2xl p-8 text-center space-y-3 relative border border-gold-500/50">
+            <p class="font-cinzel text-xs text-gold-400 tracking-[0.25em] uppercase">We can't wait to celebrate with you</p>
+            <h2 class="font-greatvibes text-5xl gold-gradient-text py-1">Junaid & Kousar</h2>
+            <p class="font-cinzel text-[10px] text-gold-400/80 tracking-widest uppercase">NOVEMBER 15, 2026 • MADARSA CHHIPAAN, BEAWER • #JUNAIDWEDSKOUSAR</p>
+        </footer>
+
+        <!-- ADDED FINAL WEDDING ILLUSTRATION — original website content above remains unchanged -->
+        <section class="mt-2 overflow-hidden rounded-2xl border border-gold-500/50 bg-[#f5efe3] shadow-2xl" aria-label="Wedding illustration">
+            <img src="elegant-islamic-wedding-arch.png" alt="Elegant illustration of the bride and groom beneath a navy and gold Islamic arch with floral details" class="block w-full h-auto" loading="lazy" style="display:block; width:100%; height:auto;" />
+        </section>
+
+    </main>
+
+    <!-- NOTIFICATION TOAST FEEDBACK -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-mukhmal-900 border border-gold-400 text-gold-200 text-xs font-cinzel px-5 py-3 rounded-full shadow-2xl opacity-0 pointer-events-none transform -translate-y-4">
+        <span id="toastMsg">Address copied to clipboard!</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- WHATSAPP CONFIGURATION ---
+        const MY_PHONE_NUMBER = "919799458321";
+
+        // --- 1. CURTAIN OPENING TRANSITION ENGINE ---
+        function triggerCurtainOpen() {
+            const openingStage = document.getElementById('openingStage');
+            const mainApp = document.getElementById('mainApp');
+
+            openingStage.classList.add('curtain-opened');
+
+            // Play background music automatically on tap
+            const bgMusic = document.getElementById('bgMusic');
+            bgMusic.play().catch(() => {});
+            document.getElementById('audioIcon').className = "fa-solid fa-volume-high text-gold-300 animate-pulse";
+
+            setTimeout(() => {
+                openingStage.style.opacity = '0';
+                setTimeout(() => {
+                    openingStage.style.display = 'none';
+                    mainApp.classList.remove('opacity-0');
+                }, 800);
+            }, 700);
+        }
+
+        // --- 2. FALLING ROSES & GOLD DUST PARTICLES ENGINE ---
+        const canvas = document.getElementById('petalsCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particles = [];
+        const particleCount = 35;
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * -canvas.height;
+                this.size = Math.random() * 9 + 5;
+                this.speedY = Math.random() * 1.2 + 0.5;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 1.5;
+                this.opacity = Math.random() * 0.6 + 0.3;
+                this.isGold = Math.random() > 0.4;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.y * 0.01) + this.speedX;
+                this.rotation += this.rotationSpeed;
+                if (this.y > canvas.height + 20) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+
+                if (this.isGold) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size / 2);
+                    ctx.lineTo(this.size / 3, 0);
+                    ctx.lineTo(0, this.size / 2);
+                    ctx.lineTo(-this.size / 3, 0);
+                    ctx.closePath();
+                    ctx.fillStyle = '#D4AF37';
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-this.size / 2, -this.size / 2, -this.size, this.size / 3, 0, this.size);
+                    ctx.bezierCurveTo(this.size, this.size / 3, this.size / 2, -this.size / 2, 0, 0);
+                    ctx.fillStyle = '#800A22';
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+
+        // --- 3. FIREWORKS ANIMATION ENGINE ---
+        const fwCanvas = document.getElementById('fireworksCanvas');
+        const fwCtx = fwCanvas.getContext('2d');
+        let fireworks = [];
+
+        function resizeFwCanvas() {
+            fwCanvas.width = window.innerWidth;
+            fwCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeFwCanvas);
+        resizeFwCanvas();
+
+        class FireworkParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 6 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+                this.radius = Math.random() * 3 + 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.05;
+                this.alpha -= this.decay;
+            }
+            draw() {
+                fwCtx.save();
+                fwCtx.globalAlpha = Math.max(0, this.alpha);
+                fwCtx.beginPath();
+                fwCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                fwCtx.fillStyle = this.color;
+                fwCtx.shadowBlur = 10;
+                fwCtx.shadowColor = this.color;
+                fwCtx.fill();
+                fwCtx.restore();
+            }
+        }
+
+        function triggerFireworks() {
+            const colors = ['#FFF1B0', '#D4AF37', '#E6C252', '#FF4D4D', '#FFD700', '#FFF'];
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 3;
+
+            for (let burst = 0; burst < 3; burst++) {
+                setTimeout(() => {
+                    const bx = centerX + (Math.random() - 0.5) * 200;
+                    const by = centerY + (Math.random() - 0.5) * 150;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    for (let i = 0; i < 60; i++) {
+                        fireworks.push(new FireworkParticle(bx, by, color));
+                    }
+                }, burst * 250);
+            }
+        }
+
+        function renderFireworks() {
+            fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
+            for (let i = fireworks.length - 1; i >= 0; i--) {
+                fireworks[i].update();
+                fireworks[i].draw();
+                if (fireworks[i].alpha <= 0) {
+                    fireworks.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(renderFireworks);
+        }
+        renderFireworks();
+
+        // --- 4. SCRATCH TO REVEAL ENGINE ---
+        const scratchCanvas = document.getElementById('scratchCanvas');
+        const sCtx = scratchCanvas.getContext('2d');
+        let isScratching = false;
+        let scratchCount = 0;
+        let isRevealed = false;
+
+        function initScratchCanvas() {
+            const rect = scratchCanvas.getBoundingClientRect();
+            scratchCanvas.width = rect.width;
+            scratchCanvas.height = rect.height;
+
+            const w = scratchCanvas.width;
+            const h = scratchCanvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const radius = Math.min(w, h) / 2;
+
+            sCtx.clearRect(0, 0, w, h);
+
+            sCtx.save();
+            sCtx.beginPath();
+            sCtx.arc(cx, cy, radius, 0, Math.PI * 2);
+            sCtx.closePath();
+
+            const grad = sCtx.createLinearGradient(0, 0, w, h);
+            grad.addColorStop(0, '#F7E185');
+            grad.addColorStop(0.5, '#D4AF37');
+            grad.addColorStop(1, '#AA851C');
+            sCtx.fillStyle = grad;
+            sCtx.fill();
+
+            sCtx.lineWidth = 3;
+            sCtx.strokeStyle = '#FFF1B0';
+            sCtx.stroke();
+
+            sCtx.fillStyle = '#0B0003';
+            sCtx.font = 'bold 12px Cinzel';
+            sCtx.textAlign = 'center';
+            sCtx.textBaseline = 'middle';
+            sCtx.fillText('SCRATCH HERE', cx, cy);
+            sCtx.restore();
+        }
+
+        function scratch(e) {
+            if (!isScratching || isRevealed) return;
+            const rect = scratchCanvas.getBoundingClientRect();
+            const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+            const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+            sCtx.globalCompositeOperation = 'destination-out';
+            sCtx.beginPath();
+            sCtx.arc(x, y, 25, 0, Math.PI * 2);
+            sCtx.fill();
+
+            scratchCount++;
+
+            if (scratchCount > 4 && !isRevealed) {
+                autoRevealDate();
+            }
+        }
+
+        function autoRevealDate() {
+            isRevealed = true;
+            let alpha = 1.0;
+            const fadeInterval = setInterval(() => {
+                sCtx.globalCompositeOperation = 'destination-out';
+                sCtx.fillStyle = 'rgba(0,0,0,0.15)';
+                sCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+                alpha -= 0.15;
+                if (alpha <= 0) {
+                    clearInterval(fadeInterval);
+                    sCtx.clearRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+                    document.getElementById('scratchInstruction').innerText = '✨ DATE REVEALED! ✨';
+                    document.getElementById('scratchInstruction').classList.add('gold-gradient-text', 'font-bold');
+                    triggerFireworks();
+                }
+            }, 40);
+        }
+
+        scratchCanvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
+        scratchCanvas.addEventListener('mousemove', scratch);
+        window.addEventListener('mouseup', () => { isScratching = false; });
+
+        scratchCanvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); }, { passive: true });
+        scratchCanvas.addEventListener('touchmove', scratch, { passive: true });
+        window.addEventListener('touchend', () => { isScratching = false; });
+
+        window.onload = () => {
+            initScratchCanvas();
+        };
+
+        // --- 5. ACCURATE COUNTDOWN TIMER ---
+        const eventDate = new Date("November 15, 2026 11:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdownGrid").innerHTML = "<div class='col-span-4 text-gold-300 font-cinzel py-2 text-sm'>THE BLESSINGS HAVE ARRIVED!</div>";
+                return;
+            }
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- 6. AUDIO & CLIPBOARD UTILITY FUNCTIONS ---
+        function toggleAudio() {
+            const bgMusic = document.getElementById('bgMusic');
+            const icon = document.getElementById('audioIcon');
+            if (bgMusic.paused) {
+                bgMusic.play();
+                icon.className = "fa-solid fa-volume-high text-gold-300 animate-pulse";
+            } else {
+                bgMusic.pause();
+                icon.className = "fa-solid fa-music text-gold-300";
+            }
+        }
+
+        function copyAddress() {
+            const addressText = "Madarsa Chhipaan, Chhipaa Mohalla, Beawer";
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(addressText)
+                    .then(() => showToast("Venue address copied to clipboard!"))
+                    .catch(() => fallbackCopy(addressText));
+            } else {
+                fallbackCopy(addressText);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand("copy");
+                showToast("Venue address copied to clipboard!");
+            } catch (err) {
+                showToast("Unable to copy automatically");
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+            }, 2500);
+        }
+
+        // --- 7. SEND BLESSINGS DIRECTLY VIA WHATSAPP ---
+        function sendWhatsAppBlessing(e) {
+            e.preventDefault();
+            const name = document.getElementById('blessingName').value;
+            const msg = document.getElementById('blessingMessage').value;
+
+            const whatsappText = `Assalamu Alaikum! 🌸\n\n*Wedding Blessings for Junaid & Kousar*\n\n*From:* ${name}\n*Dua / Message:* ${msg}\n\nMay Allah bless the couple! 🤲✨`;
+
+            const encodedText = encodeURIComponent(whatsappText);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${MY_PHONE_NUMBER}&text=${encodedText}`;
+
+            document.getElementById('blessingForm').classList.add('hidden');
+            document.getElementById('blessingSuccess').classList.remove('hidden');
+            triggerFireworks();
+
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 800);
+        }
+    </script>
+</body>
+</html>
